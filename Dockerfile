@@ -11,8 +11,11 @@ ARG SONAR_VERSION=4.5.0.2216
 ARG SONAR_SCANNER_CLI=sonar-scanner-cli-${SONAR_VERSION}
 ARG SONAR_SCANNER=sonar-scanner-${SONAR_VERSION}
 
+
 RUN apt-get update \
-    && apt-get install -y nodejs curl \
+    && apt-get install -y curl \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs \
     && apt-get clean
 
 COPY --from=build /go/src/github.com/aosapps/drone-sonar-plugin/drone-sonar /bin/
